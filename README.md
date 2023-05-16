@@ -1,6 +1,8 @@
 <h1> YelpCamp </h1>
 <hr>
 <div> Developed a full-stack application that enables users to create and rate campgrounds, resulting in a highly functional and engaging user experience. </div>
+<br>
+<hr>
 
 ![YelpCamp](https://user-images.githubusercontent.com/58156920/174917033-2fb33001-2e68-4665-aba4-53586402fce0.png)
 ![boilerplate](https://user-images.githubusercontent.com/58156920/174917032-2d38e715-c7de-4a96-8109-cbc2702c0401.png)
