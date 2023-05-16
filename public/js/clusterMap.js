@@ -5,9 +5,9 @@ style: 'mapbox://styles/mapbox/light-v10',
 center: [-103.5917, 40.6699],
 zoom: 3
 });
-
-map.addControl(new mapboxgl.NavigationControl());
  
+map.addControl(new mapboxgl.NavigationControl());
+
 map.on('load', () => {
 // Add a new source from our GeoJSON data and
 // set the 'cluster' option to true. GL-JS will
@@ -36,11 +36,11 @@ paint: {
 'circle-color': [
 'step',
 ['get', 'point_count'],
-'#03A9F4',
+'#00BCD4',
 10,
-'#2196f3',
+'#2196F3',
 30,
-'#3F51B5'
+'#3F5185'
 ],
 'circle-radius': [
 'step',
@@ -103,10 +103,9 @@ zoom: zoom
 // the location of the feature, with
 // description HTML from its properties.
 map.on('click', 'unclustered-point', (e) => {
-    const text = e.features[0].properties.popUpMarkup
+    const { popupMarkup } = e.features[0].properties
 const coordinates = e.features[0].geometry.coordinates.slice();
 
- 
 // Ensure that if the map is zoomed out such that
 // multiple copies of the feature are visible, the
 // popup appears over the copy being pointed to.
@@ -116,10 +115,7 @@ coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
  
 new mapboxgl.Popup()
 .setLngLat(coordinates)
-.setHTML(
-text
-)
-.addTo(map);
+.setHTML(popupMarkup).addTo(map);
 });
  
 map.on('mouseenter', 'clusters', () => {
