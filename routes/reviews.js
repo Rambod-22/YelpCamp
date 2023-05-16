@@ -1,14 +1,14 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router({ mergeParams: true });
-const reviewController = require("../controllers/reviews");
+const { validateReview, isLoggedIn, isReviewAuthor } = require('../middleware');
+const Campground = require('../models/campground');
+const Review = require('../models/review');
+const reviews = require('../controllers/reviews');
+const ExpressError = require('../utils/ExpressError');
+const catchAsync = require('../utils/catchAsync');
 
-const catchAsync = require("../utils/catchAsync"); //Wrapper function to handle async error
-const { validateReview, isLoggedIn, isReviewAuthor } = require("../middleware");
+router.post('/', isLoggedIn, validateReview, catchAsync(reviews.createReview))
 
-//Create a new review
-router.post("/", validateReview, isLoggedIn, catchAsync(reviewController.createReview));
-
-//Delete a review
-router.delete("/:reviewID", isLoggedIn, isReviewAuthor, catchAsync(reviewController.deleteReview));
+router.delete('/:reviewId', isLoggedIn, isReviewAuthor, catchAsync(reviews.deleteReview))
 
 module.exports = router;
