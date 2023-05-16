@@ -51,7 +51,7 @@ async function seedDB(count) {
                     pickedCity.latitude
                 ]
             },
-            author: "611d9f45c002a81bdcd004d0"
+            author: "612c21ba3673310016c0fb29"
         });
 
         await campground.save();
