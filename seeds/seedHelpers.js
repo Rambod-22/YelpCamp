@@ -1,4 +1,4 @@
-module.exports.descriptors = [
+const descriptors = [
     'Forest',
     'Ancient',
     'Petrified',
@@ -17,9 +17,10 @@ module.exports.descriptors = [
     'Sky',
     'Dusty',
     'Diamond'
-]
+];
+module.exports.descriptors = this.descriptors;
 
-module.exports.places = [
+const places = [
     'Flats',
     'Village',
     'Canyon',
@@ -41,4 +42,12 @@ module.exports.places = [
     'Hunting Camp',
     'Cliffs',
     'Hollow'
-]
+];
+module.exports.places = this.places;
+
+module.exports.getRandomTitle = function() {
+    const descriptor = descriptors[Math.floor(Math.random() * descriptors.length)];
+    const place = places[Math.floor(Math.random() * (places.length - 1))];
+
+    return `${descriptor} ${place}`;
+}
