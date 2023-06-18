@@ -1,61 +1,56 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const cities = require('./cities')
+const { places, descriptors } = require('./seedHelpers')
+const Campground = require("../models/campground")
+mongoose.connect('mongodb+srv://rambod22:Rambod2013@cluster0.exifm.mongodb.net/?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+})
 
-const Campground = require("../models/campground");
-const cities = require("./cities");
-const { getRandomTitle } = require("./seedHelpers");
-
-mongoose.connect('mongodb+srv://rambod22:Rambod2013@cluster0.exifm.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
-    console.log("Datbase connected");
-});
+    console.log("database connected");
+})
 
-//Delete everything from the database and make and add new campgrounds
-async function seedDB(count) {
+const sample = (array) => array[Math.floor(Math.random() * array.length)];
+
+const seedDB = async () => {
     await Campground.deleteMany({});
-    
-    for(let i = 0; i < count; i++) {
-        const randomPicker = Math.floor(Math.random() * 1000);
-        const pickedCity = cities[randomPicker]; //Imported from the cities.js file
-        const { city, state } = pickedCity;
-        
-        const pickedName = getRandomTitle(); //Imported from the seedHelpers.js file
-
-        const images= [
-            {
-                url: 'https://res.cloudinary.com/dtzsq6zws/image/upload/v1655446913/canada-british-columbia-parksville-best-campgrounds-intro-paragraph-camping-rathtrevor-beach_ffm4ob.jpg',
-                filename: ''
-            },
-            {
-                url: 'https://res.cloudinary.com/dtzsq6zws/image/upload/v1655446913/canada-british-columbia-parksville-best-campgrounds-intro-paragraph-camping-rathtrevor-beach_ffm4ob.jpg',
-                filename: ''
-            }
-          ];
-
-        const description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
+    for (let i = 0; i < 400; i++) {
+        const random1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 20) + 10;
-
-        const campground = new Campground({
-            title: pickedName,
-            location: `${city}, ${state}`,
-            images,
-            description,
-            price,
+        const camp = new Campground({
+            location: `${cities[random1000].city}, ${cities[random1000].state}`,
+            price: price,
+            author: '6463b7ced72a8400148d10f9',
             geometry: {
                 type: "Point",
                 coordinates: [
-                    pickedCity.longitude,
-                    pickedCity.latitude
+                    cities[random1000].longitude,
+                    cities[random1000].latitude,
                 ]
             },
-            author: "62a5754898565de7ada139b5"
-        });
-
-        await campground.save();
-    };
-
-    return mongoose.connection.close();
+            title: `${sample(descriptors)} ${sample(places)}`,
+            images: [
+                {
+                  
+                  url: 'https://res.cloudinary.com/dxsrcnub4/image/upload/v1630205235/YelpCamp/qvebpmn1c7uyogty3hz3.jpg',
+                  filename: 'YelpCamp/qvebpmn1c7uyogty3hz3'
+                },
+                {
+                  
+                  url: 'https://res.cloudinary.com/dxsrcnub4/image/upload/v1630205235/YelpCamp/g2grhbclqadnh56heswk.jpg',
+                  filename: 'YelpCamp/g2grhbclqadnh56heswk'
+                }
+              ],
+            description: "    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis velit libero illo, consectetur officia eos ad ullam ut eligendi quam excepturi hic temporibus adipisci est tempora minima assumenda ab sapiente!"
+        })
+        await camp.save();
+    }
 }
 
+seedDB().then(() => {
+    mongoose.connection.close();
+})
