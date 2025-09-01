@@ -26,8 +26,6 @@
 
 ## 📸 Screenshots
 
-*Take new screenshots of your FlavorQuest app and replace these placeholder links:*
-
 ### Home Page
 ![FlavorQuest Home](https://via.placeholder.com/800x400/2c3e50/ecf0f1?text=FlavorQuest+Home+Page)
 
