@@ -16,7 +16,9 @@
       "Bash(heroku apps:*)",
       "Bash(git push:*)",
       "Bash(heroku auth:token:*)",
-      "Bash(vercel:*)"
+      "Bash(vercel:*)",
+      "Bash(npm install:*)",
+      "Bash(railway login:*)"
     ],
     "deny": [],
     "ask": []
