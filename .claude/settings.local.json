@@ -10,7 +10,13 @@
       "Bash(PORT=3002 npm start)",
       "Bash(\"taskkill\" \"/F\" \"/IM\" \"node.exe\")",
       "Bash(cmd /c:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit:*)",
+      "Bash(heroku apps:*)",
+      "Bash(git push:*)",
+      "Bash(heroku auth:token:*)",
+      "Bash(vercel:*)"
     ],
     "deny": [],
     "ask": []
