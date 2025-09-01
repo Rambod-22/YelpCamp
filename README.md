@@ -26,22 +26,17 @@
 
 ## 📸 Screenshots
 
-*Take new screenshots of your FlavorQuest app and replace these placeholder links:*
-
 ### Home Page
-![FlavorQuest Home](https://via.placeholder.com/800x400/2c3e50/ecf0f1?text=FlavorQuest+Home+Page)
+![FlavorQuest Home](images/FlavorQuest-09-01-2025_03_42_AM.png)
 
 ### Restaurant Discovery
-![Restaurant Index](https://via.placeholder.com/800x400/e74c3c/ffffff?text=Restaurant+Discovery+Page)
+![Restaurant Discovery](images/FlavorQuest-09-01-2025_03_43_AM.png)
 
-### Restaurant Details
-![Restaurant Details](https://via.placeholder.com/800x400/27ae60/ffffff?text=Restaurant+Details+%26+Reviews)
+### Restaurant Details & Reviews
+![Restaurant Details](images/FlavorQuest-09-01-2025_03_43_AM%20(1).png)
 
 ### Add New Restaurant
-![Add Restaurant](https://via.placeholder.com/800x400/3498db/ffffff?text=Add+New+Restaurant+Form)
-
-### User Authentication
-![Login Page](https://via.placeholder.com/800x400/9b59b6/ffffff?text=User+Login+%26+Registration)
+![Add New Restaurant](images/FlavorQuest-09-01-2025_03_43_AM%20(2).png)
 
 ---
 
