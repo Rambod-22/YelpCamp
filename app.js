@@ -18,11 +18,11 @@ const catchAsync = require('./helpers/catchAsync')
 const Joi = require('joi')
 const userRoutes = require('./routes/user')
 const helmet = require('helmet')
-const campgroundRoutes = require('./routes/campgrounds')
+const restaurantRoutes = require('./routes/restaurants')
 const reviewRoutes = require('./routes/reviews')
 const User = require('./models/user')
 const mongoSanitize = require('express-mongo-sanitize');
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/flavorquest';
 const ExpressError = require('./helpers/ExpressError')
 const MongoDBStore = require('connect-mongo')(session);
 mongoose.connect(dbUrl, {
@@ -99,8 +99,8 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 app.use('/', userRoutes)
-app.use('/campgrounds', campgroundRoutes)
-app.use('/campgrounds/:id/reviews', reviewRoutes)
+app.use('/restaurants', restaurantRoutes)
+app.use('/restaurants/:id/reviews', reviewRoutes)
 
 
 

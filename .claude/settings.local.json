@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm start)",
+      "Bash(pkill:*)",
+      "Bash(taskkill:*)",
+      "Bash(\"taskkill /F /PID 21864\")",
+      "Bash(PORT=3001 npm start)",
+      "Bash(node:*)",
+      "Bash(PORT=3002 npm start)",
+      "Bash(\"taskkill\" \"/F\" \"/IM\" \"node.exe\")",
+      "Bash(cmd /c:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

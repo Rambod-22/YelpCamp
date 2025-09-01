@@ -1,0 +1,86 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/stylesheets/restaurants.css">
+
+<div class="restaurant-header">
+    <div class="container text-center">
+        <h1 class="display-4 mb-3">🍽️ Discover Amazing Restaurants</h1>
+        <p class="lead">Explore culinary experiences from around the world</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="map-container">
+        <div id="cluster-map"></div>
+    </div>
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">All Restaurants <span class="badge bg-secondary"><%= restaurants.length %></span></h2>
+        <a href="/restaurants/new" class="btn btn-success btn-lg rounded-pill">
+            <i class="fas fa-plus"></i> Add New Restaurant
+        </a>
+    </div>
+
+    <% if (restaurants.length === 0) { %>
+        <div class="no-restaurants">
+            <h3>No restaurants yet!</h3>
+            <p>Be the first to add a restaurant to FlavorQuest.</p>
+            <a href="/restaurants/new" class="btn btn-primary btn-lg">Add Restaurant</a>
+        </div>
+    <% } else { %>
+        <div class="restaurants-grid">
+            <% for (let restaurant of restaurants) { %>
+                <div class="restaurant-card">
+                    <% if(restaurant.images.length) { %> 
+                        <img class="restaurant-image w-100" alt="<%= restaurant.name %>" src="<%= restaurant.images[0].url %>">
+                    <% } else { %> 
+                        <img class="restaurant-image w-100" alt="Restaurant placeholder" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+                    <% } %> 
+                    
+                    <div class="restaurant-card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="restaurant-name mb-0"><%= restaurant.name %></h5>
+                            <span class="price-range"><%= restaurant.priceRange %></span>
+                        </div>
+                        
+                        <div class="mb-2">
+                            <span class="cuisine-badge"><%= restaurant.cuisine %></span>
+                            <span class="rating-stars">
+                                ★★★★☆ <small class="text-muted">(4.2)</small>
+                            </span>
+                        </div>
+                        
+                        <div class="restaurant-info">
+                            <i class="fas fa-map-marker-alt"></i> <%= restaurant.address %>
+                        </div>
+                        
+                        <% if(restaurant.phone) { %>
+                            <div class="restaurant-info">
+                                <i class="fas fa-phone"></i> <%= restaurant.phone %>
+                            </div>
+                        <% } %>
+                        
+                        <p class="restaurant-description">
+                            <%= restaurant.description.substring(0, 120) %>...
+                        </p>
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a class="view-restaurant-btn" href="/restaurants/<%= restaurant._id %>">
+                                View Details →
+                            </a>
+                            <small class="text-muted">
+                                <i class="fas fa-clock"></i> Open Now
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    <% } %>
+</div>
+
+<script>
+    const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+    const restaurants = {features: <%- JSON.stringify(restaurants) %>}
+</script>
+
+<script src="/javascripts/clusterMap.js"></script>

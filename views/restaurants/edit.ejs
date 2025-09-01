@@ -1,0 +1,71 @@
+<% layout('layouts/boilerplate') %>
+    <div class="row">
+        <h1 class="text-center">Edit Restaurant</h1>
+        <div class="col-md-6 offset-md-3">
+            <form action="/restaurants/<%= restaurant._id %>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Restaurant Name</label>
+                    <input class="form-control" type="text" id="name" name="restaurant[name]" required value="<%= restaurant.name %>">
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="cuisine">Cuisine Type</label>
+                    <input class="form-control" type="text" id="cuisine" name="restaurant[cuisine]" required value="<%= restaurant.cuisine %>">
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="address">Address</label>
+                    <input class="form-control" type="text" id="address" name="restaurant[address]" required value="<%= restaurant.address %>">
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="priceRange">Price Range</label>
+                    <select class="form-control" id="priceRange" name="restaurant[priceRange]" required>
+                        <option value="">Select Price Range</option>
+                        <option value="$" <%= restaurant.priceRange === '$' ? 'selected' : '' %>>$ - Budget Friendly</option>
+                        <option value="$$" <%= restaurant.priceRange === '$$' ? 'selected' : '' %>>$$ - Moderate</option>
+                        <option value="$$$" <%= restaurant.priceRange === '$$$' ? 'selected' : '' %>>$$$ - Expensive</option>
+                        <option value="$$$$" <%= restaurant.priceRange === '$$$$' ? 'selected' : '' %>>$$$$ - Very Expensive</option>
+                    </select>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="phone">Phone Number</label>
+                    <input class="form-control" type="tel" id="phone" name="restaurant[phone]" value="<%= restaurant.phone %>">
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="restaurant[description]" required><%= restaurant.description %></textarea>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Add more image(s)</label>
+                    <input class="form-control" type="file" id="image" name="image" multiple>
+                </div>
+                <div class="mb-3">
+                    <% restaurant.images.forEach(function (img, i) { %>
+                        <img src="<%= img.thumbnail %>" alt="" class="img-thumbnail">
+                        <div class="form-check-inline">
+                            <input type="checkbox" name="deleteImages[]" id="image-<%=i%>" value="<%= img.filename %>">
+                        </div>
+                        <label for="image-<%=i%>">Delete?</label>
+                    <% }) %>
+                </div>
+                <button class="btn btn-success">Update Restaurant</button>
+            </form>
+            <a href="/restaurants/<%= restaurant._id %>">Back to Restaurant</a>
+        </div>
+    </div>

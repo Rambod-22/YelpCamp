@@ -1,6 +1,6 @@
-<h1> YelpCamp </h1>
+<h1> FlavorQuest 🍴 </h1>
 
-<div> Developed a full-stack application that enables users to create and rate campgrounds, resulting in a highly functional and engaging user experience. </div>
+<div> A full-stack restaurant discovery and rating platform that enables users to explore, add, and review amazing restaurants, creating a comprehensive culinary adventure experience. </div>
 <br>
 <h1> Examples </h1>
 <div></div>

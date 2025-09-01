@@ -1,0 +1,164 @@
+<% layout('layouts/boilerplate') %>
+    <div class="row">
+        <h1 class="text-center">Add New Restaurant</h1>
+        <div class="col-md-6 offset-md-3">
+           
+            <form action="/restaurants" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Restaurant Name</label>
+                    <input class="form-control" type="text" id="name" name="restaurant[name]" required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="cuisine">Cuisine Type</label>
+                    <input class="form-control" type="text" id="cuisine" name="restaurant[cuisine]" required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="address">Address</label>
+                    <input class="form-control" type="text" id="address" name="restaurant[address]" placeholder="Start typing an address..." required>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="priceRange">Price Range</label>
+                    <select class="form-control" id="priceRange" name="restaurant[priceRange]" required>
+                        <option value="">Select Price Range</option>
+                        <option value="$">$ - Budget Friendly</option>
+                        <option value="$$">$$ - Moderate</option>
+                        <option value="$$$">$$$ - Expensive</option>
+                        <option value="$$$$">$$$$ - Very Expensive</option>
+                    </select>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="phone">Phone Number</label>
+                    <input class="form-control" type="tel" id="phone" name="restaurant[phone]">
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="restaurant[description]"
+                        required></textarea>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload Image(s)</label>
+                    <input class="form-control" type="file" id="image" name="image" multiple>
+                </div>
+                <button class="btn btn-success">Add Restaurant</button>
+            </form>
+            <a href="/restaurants">Go back</a>
+     
+        </div>
+    </div>
+
+<script>
+    const mapboxToken = '<%-process.env.MAPBOX_TOKEN%>';
+    
+    // Mapbox Geocoding API for address suggestions
+    const addressInput = document.getElementById('address');
+    let debounceTimer;
+    
+    // Create suggestions dropdown
+    const suggestionsDiv = document.createElement('div');
+    suggestionsDiv.className = 'suggestions-dropdown';
+    suggestionsDiv.style.cssText = `
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #ddd;
+        border-top: none;
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1000;
+        display: none;
+    `;
+    
+    // Style for suggestion items
+    const style = document.createElement('style');
+    style.textContent = `
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+        .suggestion-item:hover {
+            background-color: #f8f9fa;
+        }
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Make address input container relative
+    addressInput.parentElement.style.position = 'relative';
+    addressInput.parentElement.appendChild(suggestionsDiv);
+    
+    addressInput.addEventListener('input', function(e) {
+        clearTimeout(debounceTimer);
+        const query = e.target.value.trim();
+        
+        if (query.length < 3) {
+            suggestionsDiv.style.display = 'none';
+            return;
+        }
+        
+        debounceTimer = setTimeout(() => {
+            fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${mapboxToken}&types=address,poi&limit=5`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsDiv.innerHTML = '';
+                    
+                    if (data.features && data.features.length > 0) {
+                        data.features.forEach(feature => {
+                            const div = document.createElement('div');
+                            div.className = 'suggestion-item';
+                            div.textContent = feature.place_name;
+                            div.addEventListener('click', () => {
+                                addressInput.value = feature.place_name;
+                                suggestionsDiv.style.display = 'none';
+                            });
+                            suggestionsDiv.appendChild(div);
+                        });
+                        suggestionsDiv.style.display = 'block';
+                    } else {
+                        suggestionsDiv.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching suggestions:', error);
+                    suggestionsDiv.style.display = 'none';
+                });
+        }, 300);
+    });
+    
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!addressInput.parentElement.contains(e.target)) {
+            suggestionsDiv.style.display = 'none';
+        }
+    });
+    
+    // Hide suggestions on escape key
+    addressInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            suggestionsDiv.style.display = 'none';
+        }
+    });
+</script>

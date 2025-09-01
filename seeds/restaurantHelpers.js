@@ -1,0 +1,83 @@
+module.exports.cuisines = [
+    'Italian',
+    'Chinese',
+    'Mexican',
+    'Thai',
+    'Indian',
+    'Japanese',
+    'French',
+    'Greek',
+    'American',
+    'Mediterranean',
+    'Korean',
+    'Vietnamese',
+    'Lebanese',
+    'Spanish',
+    'Turkish',
+    'Brazilian',
+    'German',
+    'Ethiopian',
+    'Moroccan',
+    'Peruvian'
+]
+
+module.exports.restaurantNames = [
+    'Bistro',
+    'Cafe',
+    'Kitchen',
+    'Grill',
+    'House',
+    'Garden',
+    'Corner',
+    'Palace',
+    'Tavern',
+    'Eatery',
+    'Diner',
+    'Lounge',
+    'Bar',
+    'Restaurant',
+    'Pizzeria',
+    'Steakhouse',
+    'Seafood',
+    'Noodle Bar',
+    'Sushi Bar',
+    'Food Truck'
+]
+
+module.exports.adjectives = [
+    'Golden',
+    'Red',
+    'Blue',
+    'Green',
+    'Royal',
+    'Grand',
+    'Little',
+    'Big',
+    'Old',
+    'New',
+    'Fresh',
+    'Spicy',
+    'Sweet',
+    'Crispy',
+    'Savory',
+    'Classic',
+    'Modern',
+    'Urban',
+    'Rustic',
+    'Elegant'
+]
+
+module.exports.restaurantDescriptions = [
+    "A cozy family-owned restaurant serving authentic cuisine with fresh, locally-sourced ingredients.",
+    "Experience exceptional dining with our chef's innovative take on traditional flavors.",
+    "Casual dining atmosphere perfect for families, friends, and date nights.",
+    "Farm-to-table dining with seasonal menus that change based on local harvest.",
+    "Upscale dining experience featuring expertly crafted dishes and extensive wine selection.",
+    "Traditional recipes passed down through generations, prepared with love and care.",
+    "Modern fusion cuisine that blends flavors from around the world.",
+    "Quick, fresh, and delicious meals perfect for lunch or dinner on the go.",
+    "Intimate setting with live music and carefully curated menu of specialty dishes.",
+    "Award-winning chef creates memorable dining experiences with seasonal ingredients.",
+    "Authentic street food flavors in a comfortable, contemporary setting.",
+    "Health-conscious menu featuring organic, gluten-free, and vegan options."
+]

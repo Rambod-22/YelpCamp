@@ -10,11 +10,15 @@ module.exports.register = async (req, res, next) => {
                 return next(err)
             }
         })
-        req.flash('success', 'Welcome To YelpCamp!')
-        res.redirect('/campgrounds')
+        req.flash('success', 'Welcome To FlavorQuest!')
+        res.redirect('/restaurants')
     }
     catch (e) {
-        req.flash('error', e.message)
+        if (e.code === 11000) {
+            req.flash('error', 'A user with that email already exists.')
+        } else {
+            req.flash('error', e.message)
+        }
         res.redirect('/register')
     }
 }
@@ -29,7 +33,7 @@ module.exports.renderLogin = (req, res) => {
 
 module.exports.login = (req, res) => {
     req.flash('success', 'Welcome Back!')
-    const redirectUrl = req.session.returnTo || '/campgrounds'
+    const redirectUrl = req.session.returnTo || '/restaurants'
     delete req.session.returnTo;
     res.redirect(redirectUrl)
 
@@ -38,5 +42,5 @@ module.exports.login = (req, res) => {
 module.exports.logout = (req, res) => {
     req.logout();
     req.flash('success', 'Goodbye')
-    res.redirect('/campgrounds')
+    res.redirect('/restaurants')
 }
